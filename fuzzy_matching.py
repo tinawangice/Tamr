@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from fuzzywuzzy import fuzz
 from rosette.api import API, NameSimilarityParameters
-import traceback
+
 
 def fuzzy_match_with_rosette(s1, s2, thresh=0.7):
     key = '8de84cdb4432c800d3db01cc4e5d4de0'
@@ -34,5 +34,5 @@ def fuzzy_match(s1, s2, threshold=0.7, method='FUZZYWUZZY'):
     try:
         return func(s1, s2, threshold)
     except:
-        #print('Error when fuzzy_match; just return False; %s' % traceback.format_exc())
+        # print('Error when fuzzy_match; just return False; %s' % traceback.format_exc())
         return False

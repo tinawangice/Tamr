@@ -3,28 +3,23 @@ import os
 import traceback
 from multiprocessing import Pool, cpu_count
 
+from utils import excel_col_to_num
+
 INTERESTING_COLUMNS = [('AD', 'recipient_duns'), ('AE', 'recipient_name'), ('AG', 'recipient_parent_name'),
                        ('AH', 'recipient_parent_duns'), ('AI', 'recipient_country_code'),
                        ('AK', 'recipient_address_line_1'), ('AN', 'recipient_city_name'),
                        ('AO', 'recipient_state_code'), ('AQ', 'recipient_zip_4_code'), ('AS', 'recipient_phone_number'),
                        ('AT', 'recipient_fax_number')]
 
+
 def raw_cols_to_interested_cols(row):
     interesting_col_ids = set(excel_col_to_num(col) for col, _ in INTERESTING_COLUMNS)
     shorter_row = [c for cidx, c in enumerate(row) if cidx in interesting_col_ids]
     return shorter_row
 
+
 def row_2_cleaned_row(row):
     return tuple(map(lambda c: c.strip().upper(), row))
-
-
-def excel_col_to_num(name):
-    pow = 1
-    col_num = 0
-    for letter in name[::-1]:
-        col_num += (int(letter, 36) - 9) * pow
-        pow *= 26
-    return col_num - 1
 
 
 def wrangle_data(csv_files, final_csv_file):
@@ -75,8 +70,8 @@ def dedup_exactly_same_records(csv_file, dedupped_csv_file):
         for record in uniq_keys:
             csv_writer.writerow(record)
     print(
-        'Finished dedupping records. Read %d records and got %s records finally. Unique records were written to file %s' % (
-            original_count, len(uniq_keys), dedupped_csv_file))
+            'Finished dedupping records. Read %d records and got %s records finally. Unique records were written to file %s' % (
+        original_count, len(uniq_keys), dedupped_csv_file))
     return list(uniq_keys)
 
 
