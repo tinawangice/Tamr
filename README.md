@@ -87,18 +87,24 @@ For those companies that are deemed as the “same company” on confident match
 
 I parsed and stored the original csv file into a MySQL DB, appending to each row a group_id corresponding to the company in this row.
 
-### Example 1 : Find how many distinct suppliers with/without method of Confident Matching for each parent award agency. And the reduction for  parent award agencies with highest occurrences is found around 1% ~ 7%. 
+### Example 1 : 
+
+Find how many distinct suppliers with/without method of Confident Matching for each parent award agency. And the reduction for  parent award agencies with highest occurrences is found around 1% ~ 7%. 
+
+![image](https://github.com/tinawangice/Tamr/blob/master/images/147101523943975_.pic_hd.jpg)
+
+### Example 2 : 
+
+Find number of companies under a parent company. As shown below, we can see Government of the United States are classified into 68 companies, even though it contains 150 distinct company duns numbers, 91 distinct company names and 161 zip_4_codes.
+
+![image](https://github.com/tinawangice/Tamr/blob/master/images/147091523943972_.pic_hd.jpg)
 
 
+### Example 3: 
 
-### Example 2 : Find number of companies under a parent company. As shown below, we can see Government of the United States are classified into 68 companies, even though it contains 150 distinct company duns numbers, 91 distinct company names and 161 zip_4_codes.
+Choose supplier “Government of the United States” to visualize its transaction map in United States. We can see it has most transactions in Kentucky and Texas.
 
-![image](/. )
-
-### Example 3: Choose supplier “Government of the United States” to visualize its transaction map in United States. We can see it has most transactions in Kentucky and Texas.
-
-
-
+![image](https://github.com/tinawangice/Tamr/blob/master/images/147111523943977_.pic_hd.jpg)
 
 
 
