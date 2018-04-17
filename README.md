@@ -7,25 +7,14 @@ Find distinct suppliers from 4 million transaction records from USA 2016 spend d
 
 Generate analysis from aggregation of distinct supplier.
 
-Data can be found: https://www.usaspending.gov/DownloadCenter/Pages/dataarchives.aspx
-
-
-## Features
-
-* Using information including suppliers' names, duns, parent_names, parent_duns, zip4codes, address_first_lines, 
-phone numbers, fax numbers, 467,902 distinct exact matches across 4,811,900 records, which is 9.72% of initial records.
-
-* Using confident-matching method (explained later) across 467,902 distinct exact matches, there are at most 11,... distinct suppliers.
-
-* With fuzzy-matching method (explained later) of company names, there might only be 11,... distinct suppliers.
-                    
-* All original records are added group_id, and stored in MySQL server for future analysis.
+For details of the project, please refer to: https://docs.google.com/document/d/1KTgcyUJ201Zr1GMGGQCWiO8uNTUyDhFoPTEK9hiaKh0/edit?usp=sharing
 
 
 ## Explanation of Codes
 
 ### main.py
 * The main.
+
 
 ### data_wrangler.py
 
@@ -36,6 +25,7 @@ recipient_phone_number, recipient_fax_number
 * Use selected columns to create tuples, then write distinct tuples into dedupped_csv_file.csv
 
 * Multi-processing is used to speed up deal with 5 seperate *.csv files.
+
 
 ### company_alias_grouper.py
 
@@ -64,7 +54,8 @@ noticing that only records with same parent_duns will be in one "CompanyAliasGro
  
       { group_id : {2: [[information of not confident aliases],[...]],
                     3: [[information of confident aliases],[...],[...]]}
-                    
+         
+         
 ### fuzzy_matching.py
 
 * provide 2 fuzzy matching method:
@@ -82,11 +73,29 @@ noticing that only records with same parent_duns will be in one "CompanyAliasGro
 * confident_company_aliases is arbitrarily selected, new csv file named "final.csv" is generated with
 the column "group_id" added to original csv file.
 
+
 ### write_2_db.py
 
 * A temperory server on AWS is used. (data will not be availble after 20-Apr-2018)
 
 * Multi-threading and "add many in mysql" technics are used to speed up the storing.
+
+
+## Some results: 
+
+For those companies that are deemed as the “same company” on confident match level, we group them together and assign a group_id. 
+
+I parsed and stored the original csv file into a MySQL DB, appending to each row a group_id corresponding to the company in this row.
+
+### Example 1 : Find how many distinct suppliers with/without method of Confident Matching for each parent award agency. And the reduction for  parent award agencies with highest occurrences is found around 1% ~ 7%. 
+
+
+
+### Example 2 : Find number of companies under a parent company. As shown below, we can see Government of the United States are classified into 68 companies, even though it contains 150 distinct company duns numbers, 91 distinct company names and 161 zip_4_codes.
+
+![image](/. )
+
+### Example 3: Choose supplier “Government of the United States” to visualize its transaction map in United States. We can see it has most transactions in Kentucky and Texas.
 
 
 
