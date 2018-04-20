@@ -103,10 +103,10 @@ def truncate_table():
 def copy_from_csv_to_db(csv_file):
     pool = None
     try:
-        pool = ThreadPool()
+        pool = ThreadPool(POOL_SIZE)
         with open(csv_file, 'r') as f:
             csv_reader = csv.reader(f)
-            for macro_chunks in split_every(1000 * POOL_SIZE * 10, csv_reader):
+            for macro_chunks in split_every(10000 * POOL_SIZE, csv_reader):
                 list(pool.imap_unordered(insert_many, split_every(1000, macro_chunks)))
         print("Done")
     finally:
