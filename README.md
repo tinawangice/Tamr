@@ -52,7 +52,7 @@ noticing that only records with same parent_duns will be in one "CompanyAliasGro
 
 * 2 json files from confident-matching and fuzzy-matching are generated, example of 1 item in json:
  
-      { group_id : {2: [[information of not confident aliases],[...]],
+      { uuid : {2: [[information of not confident aliases],[...]],
                     3: [[information of confident aliases],[...],[...]]}
          
          
